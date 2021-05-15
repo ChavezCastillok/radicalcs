@@ -1,6 +1,6 @@
 <script>
-  let tasaCOP = JSON.parse(localStorage.getItem("tasaCOP")) || 3450;
-  let tasaVES = JSON.parse(localStorage.getItem("tasaVES")) || 2360000;
+  let tasaCOP = JSON.parse(localStorage.getItem("tasaCOP")) ?? 3450;
+  let tasaVES = JSON.parse(localStorage.getItem("tasaVES")) ?? 2860000;
   let montoUSD = "";
   let montoCOP = "";
   let montoVES = "";

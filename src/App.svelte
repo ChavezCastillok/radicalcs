@@ -6,97 +6,111 @@
   import CalcNomina from "./CalcNomina.svelte";
   import CalcStatics from "./CalcStatics.svelte";
   import Footer from "./Footer.svelte";
+  import CalcClock from "./CalcClock.svelte";
 
   let basic = false;
   let divisas = false;
   let nomina = false;
   let statics = false;
+  let oclock = false;
 
   function see_basic() {
     divisas = false;
     nomina = false;
     statics = false;
+    oclock = false;
     basic = true;
   }
   function see_divisas() {
     basic = false;
     nomina = false;
     statics = false;
+    oclock = false;
     divisas = true;
   }
   function see_nomina() {
     basic = false;
     statics = false;
     divisas = false;
+    oclock = false;
     nomina = true;
   }
   function see_statics() {
     basic = false;
     nomina = false;
     divisas = false;
+    oclock = false;
     statics = true;
+  }
+  function see_oclock() {
+    basic = false;
+    nomina = false;
+    divisas = false;
+    statics = false;
+    oclock = true;
   }
 </script>
 
 <main class="container">
-  <div class="hero is-fullheight has-text-centered">
-    <header class="hero-head">
-      <div class="level">
-        <section class="level-left">
-          <article class="level-item">
-            <h1 class="title">Radi<strong>Calcs</strong></h1>
-          </article>
-          <article class="level-item">
-            <a href="index.html">Welcome</a>
-          </article>
-        </section>
-        <section class="level-right">
-          <article class="level-item">
-            <div class="tabs">
-              <ul>
-                <li class={basic ? "is-active" : ""} on:click={see_basic}>
-                  <!-- icon -->
-                  <!-- svelte-ignore a11y-missing-attribute -->
-                  <a>basic</a>
-                </li>
-                <li class={divisas ? "is-active" : ""} on:click={see_divisas}>
-                  <!-- icon -->
-                  <!-- svelte-ignore a11y-missing-attribute -->
-                  <a>divisas</a>
-                </li>
-                <li class={nomina ? "is-active" : ""} on:click={see_nomina}>
-                  <!-- icon -->
-                  <!-- svelte-ignore a11y-missing-attribute -->
-                  <a>nomina</a>
-                </li>
-                <li class={statics ? "is-active" : ""} on:click={see_statics}>
-                  <!-- icon -->
-                  <!-- svelte-ignore a11y-missing-attribute -->
-                  <a>statics</a>
-                </li>
-              </ul>
-            </div>
-          </article>
-        </section>
-      </div>
-    </header>
-    <div class="hero-body is-justify-content-center">
-      {#if basic}
-        <CalcBasic />
-      {:else if divisas}
-        <CalcDivisas />
-      {:else if nomina}
-        <CalcNomina />
-      {:else if statics}
-        <CalcStatics />
-      {:else}
-        <Welcome />
-      {/if}
-    </div>
-    <div class="hero-foot">
-      <Footer />
-    </div>
+  <div class="level">
+    <section class="level-left">
+      <header class="level-item">
+        <h1 class="title">Radi<strong>Calcs</strong></h1>
+      </header>
+      <article class="level-item">
+        <a href="index.html">Welcome</a>
+      </article>
+    </section>
+    <section class="level-right">
+      <article class="level-item">
+        <nav class="tabs">
+          <ul>
+            <li class={basic ? "is-active" : ""} on:click={see_basic}>
+              <!-- icon -->
+              <!-- svelte-ignore a11y-missing-attribute -->
+              <a>basic</a>
+            </li>
+            <li class={divisas ? "is-active" : ""} on:click={see_divisas}>
+              <!-- icon -->
+              <!-- svelte-ignore a11y-missing-attribute -->
+              <a>divisas</a>
+            </li>
+            <li class={nomina ? "is-active" : ""} on:click={see_nomina}>
+              <!-- icon -->
+              <!-- svelte-ignore a11y-missing-attribute -->
+              <a>nomina</a>
+            </li>
+            <li class={statics ? "is-active" : ""} on:click={see_statics}>
+              <!-- icon -->
+              <!-- svelte-ignore a11y-missing-attribute -->
+              <a>statics</a>
+            </li>
+            <li class={oclock ? "is-active" : ""} on:click={see_oclock}>
+              <!-- icon -->
+              <!-- svelte-ignore a11y-missing-attribute -->
+              <a>Reloj</a>
+            </li>
+          </ul>
+        </nav>
+      </article>
+    </section>
   </div>
+  <section class="section">
+    {#if basic}
+      <CalcBasic />
+    {:else if divisas}
+      <CalcDivisas />
+    {:else if nomina}
+      <CalcNomina />
+    {:else if statics}
+      <CalcStatics />
+    {:else if oclock}
+      <CalcClock />
+    {:else}
+      <Welcome />
+    {/if}
+  </section>
+  <Footer />
 </main>
 
 <style>
@@ -128,13 +142,7 @@
     font-weight: bold;
     text-transform: uppercase;
   }
-  .hero-head {
-    color: ghostwhite;
-  }
-
-  .hero-body {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  .section {
+    text-align: center;
   }
 </style>
