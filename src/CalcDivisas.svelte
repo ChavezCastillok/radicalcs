@@ -1,28 +1,32 @@
 <script>
-  let tasaCOP = JSON.parse(localStorage.getItem("tasaCOP")) ?? 3450;
-  let tasaVES = JSON.parse(localStorage.getItem("tasaVES")) ?? 2860000;
+  import { onMount } from "svelte";
+
+  let exchangeRateBCV = NaN;
+
+  let rateCOP = JSON.parse(localStorage.getItem("rateCOP")) ?? 3450;
+  let rateVES = JSON.parse(localStorage.getItem("rateVES")) ?? exchangeRateBCV;
   let montoUSD = "";
   let montoCOP = "";
   let montoVES = "";
 
-  $: tasaVESCOP = (tasaCOP / tasaVES).toFixed("6");
-  $: localStorage.setItem("tasaCOP", JSON.stringify(tasaCOP));
-  $: localStorage.setItem("tasaVES", JSON.stringify(tasaVES));
+  $: rateVESCOP = (rateCOP / rateVES).toFixed("6");
+  $: localStorage.setItem("rateCOP", JSON.stringify(rateCOP));
+  $: localStorage.setItem("rateVES", JSON.stringify(rateVES));
 
   const calcularUSD = () => {
     if (montoUSD < 0) {
       montoUSD = 1;
     }
-    montoVES = (montoUSD * tasaVES).toFixed("2");
-    montoCOP = (montoUSD * tasaCOP).toFixed("2");
+    montoVES = (montoUSD * rateVES).toFixed("2");
+    montoCOP = (montoUSD * rateCOP).toFixed("2");
   };
   const calcularCOP = () => {
-    montoVES = (montoCOP / tasaVESCOP).toFixed("2");
-    montoUSD = (montoCOP / tasaCOP).toFixed("2");
+    montoVES = (montoCOP / rateVESCOP).toFixed("2");
+    montoUSD = (montoCOP / rateCOP).toFixed("2");
   };
   const calcularVES = () => {
-    montoCOP = (montoVES * tasaVESCOP).toFixed("2");
-    montoUSD = (montoVES / tasaVES).toFixed("2");
+    montoCOP = (montoVES * rateVESCOP).toFixed("2");
+    montoUSD = (montoVES / rateVES).toFixed("2");
   };
 
   const cleanMounts = () => {
@@ -30,6 +34,19 @@
     montoCOP = "";
     montoVES = "";
   };
+
+  async function dolarBCV() {
+    await fetch("https://api-divisas-ve.herokuapp.com/v1/")
+      .then((res) => res.json())
+      .then((json) => {
+        exchangeRateBCV = parseFloat(json.data.dollar.value);
+      })
+      .catch((error) => console.log(error));
+  }
+
+  onMount(() => {
+    dolarBCV();
+  });
 </script>
 
 <div class="columns is-multiline">
@@ -120,7 +137,7 @@
           <input
             class="input"
             type="text"
-            bind:value={tasaCOP}
+            bind:value={rateCOP}
             on:input={calcularUSD}
             placeholder="COP"
           />
@@ -134,7 +151,7 @@
           <input
             class="input"
             type="text"
-            bind:value={tasaVES}
+            bind:value={rateVES}
             on:input={calcularUSD}
             placeholder="VES"
           />
@@ -142,6 +159,25 @@
       </p>
       <p class="button is-static">VES</p>
     </div>
+
+    <div>
+      {#if rateVES == exchangeRateBCV}
+        <button class="button is-info is-disabled" title="en uso" disabled>
+          exchangeRateBCV
+        </button>
+      {:else}
+        <button
+          class="button"
+          title={exchangeRateBCV}
+          on:click={() => {
+            rateVES = exchangeRateBCV;
+          }}
+        >
+          exchangeRateBCV
+        </button>
+      {/if}
+    </div>
+
     <h5 class="subtitle">Tasa de cambio a VES</h5>
 
     <div class="field has-addons">
@@ -150,7 +186,7 @@
           <input
             class="input"
             type="text"
-            bind:value={tasaVESCOP}
+            bind:value={rateVESCOP}
             placeholder="VESCOP"
             readonly
           />
