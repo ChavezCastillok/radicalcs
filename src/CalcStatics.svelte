@@ -117,16 +117,25 @@
         <td>{totalValues}</td>
       </tr>
     </table>
-    <article class="content">
-      <h1>Medidas de tendencia central</h1>
-      <p>Media aritmetica (X-): {mediaAritmetica.toFixed("2")}</p>
-      <p>Media armonica (X-h): {mediaArmonica.toFixed("2")}</p>
-      <p>Media Geométrica (X-g): {mediaGeometrica.toFixed("2")}</p>
-      <p>
-        Mediana simple (Mds): {medianaSimple.toFixed("2")} Clase (valor) que contiene
-        la madiana.
-      </p>
-      <p>Mediana datos agrupados (Mdg): {mediana.toFixed("2")}</p>
-    </article>
+    <section class="columns">
+      <section class="column">
+        <article class="content">
+          <h1>Medidas de tendencia central</h1>
+          <p>Media aritmetica (X-): {mediaAritmetica.toFixed("2")}</p>
+          <p>Media armonica (X-h): {mediaArmonica.toFixed("2")}</p>
+          <p>Media Geométrica (X-g): {mediaGeometrica.toFixed("2")}</p>
+          <p>
+            Mediana simple (Mds): {medianaSimple.toFixed("2")} Clase (valor) que
+            contiene la madiana.
+          </p>
+          <p>Mediana datos agrupados (Mdg): {mediana.toFixed("2")}</p>
+        </article>
+      </section>
+      <section class="column">
+        <article class="content">
+          <h1>Desde pyodide</h1>
+        </article>
+      </section>
+    </section>
   </section>
 </section>
