@@ -54,78 +54,36 @@
       negativo = false;
     }
   }
-  // Events
 
-  window.addEventListener("keydown", (evento) => {
-    switch (evento.key) {
-      case "1":
-        screen2 += "1";
-        break;
-      case "2":
-        screen2 += "2";
-        break;
-      case "3":
-        screen2 += "3";
-        break;
-      case "4":
-        screen2 += "4";
-        break;
-      case "5":
-        screen2 += "5";
-        break;
-      case "6":
-        screen2 += "6";
-        break;
-      case "7":
-        screen2 += "7";
-        break;
-      case "8":
-        screen2 += "8";
-        break;
-      case "9":
-        screen2 += "9";
-        break;
-      case "0":
-        screen2 += "0";
-        break;
-      case ".":
-        pointClick();
-        break;
-      case "+":
-        screen2 += "+";
-        break;
-      case "-":
-        screen2 += "-";
-        break;
-      case "*":
-        screen2 += "*";
-        break;
-      case "/":
-        screen2 += "/";
-        break;
-      case "(":
-        screen2 += "(";
-        break;
-      case ")":
-        screen2 += ")";
-        break;
-      case "%":
-        screen2 += "%";
-        calc_percentage = true;
-        break;
-      case "Backspace":
-        borrar();
-        break;
-      case "c":
-        clean_screen();
-        break;
-      case "Enter":
-        get_result();
-        break;
-      default:
-        break;
-    }
-  });
+  function handleKeydown(event) {
+    let key = event.key;
+    if (
+      key == "1" ||
+      key == "2" ||
+      key == "3" ||
+      key == "4" ||
+      key == "5" ||
+      key == "6" ||
+      key == "7" ||
+      key == "8" ||
+      key == "9" ||
+      key == "0" ||
+      key == "+" ||
+      key == "-" ||
+      key == "*" ||
+      key == "/" ||
+      key == "(" ||
+      key == ")"
+    ) {
+      screen2 += key;
+    } else if (key == ".") pointClick();
+    else if (key == "%") {
+      screen2 += "%";
+      calc_percentage = true;
+    } else if (key == "Backspace") borrar();
+    else if (key == "c") clean_screen();
+    else if (key == "Enter") get_result();
+  }
 
   $: if (calc_percentage) {
     if (screen2.length == 1) {
@@ -139,6 +97,8 @@
     calc_percentage = false;
   }
 </script>
+
+<svelte:window on:keydown|stopPropagation={handleKeydown} />
 
 <section class="columns is-multiline">
   <article class="column is-flex is-justify-content-center">

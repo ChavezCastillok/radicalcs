@@ -3,14 +3,12 @@
 
   import CalcBasic from "./CalcBasic.svelte";
   import CalcDivisas from "./CalcDivisas.svelte";
-  import CalcNomina from "./CalcNomina.svelte";
   import CalcStatics from "./CalcStatics.svelte";
   import Footer from "./Footer.svelte";
   import CalcClock from "./CalcClock.svelte";
 
   let basic = false;
   let divisas = false;
-  let nomina = false;
   let statics = false;
   let oclock = false;
 
@@ -27,13 +25,6 @@
     statics = false;
     oclock = false;
     divisas = true;
-  }
-  function see_nomina() {
-    basic = false;
-    statics = false;
-    divisas = false;
-    oclock = false;
-    nomina = true;
   }
   function see_statics() {
     basic = false;
@@ -75,11 +66,6 @@
               <!-- svelte-ignore a11y-missing-attribute -->
               <a>divisas</a>
             </li>
-            <li class={nomina ? "is-active" : ""} on:click={see_nomina}>
-              <!-- icon -->
-              <!-- svelte-ignore a11y-missing-attribute -->
-              <a>nomina</a>
-            </li>
             <li class={statics ? "is-active" : ""} on:click={see_statics}>
               <!-- icon -->
               <!-- svelte-ignore a11y-missing-attribute -->
@@ -100,8 +86,6 @@
       <CalcBasic />
     {:else if divisas}
       <CalcDivisas />
-    {:else if nomina}
-      <CalcNomina />
     {:else if statics}
       <CalcStatics />
     {:else if oclock}
