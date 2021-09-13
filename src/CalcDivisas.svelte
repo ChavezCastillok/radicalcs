@@ -168,7 +168,7 @@
       {:else}
         <button
           class="button"
-          title={exchangeRateBCV}
+          title={exchangeRateBCV || "click me"}
           on:click={() => {
             rateVES = exchangeRateBCV;
           }}

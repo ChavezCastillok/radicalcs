@@ -14,28 +14,24 @@
 
   function see_basic() {
     divisas = false;
-    nomina = false;
     statics = false;
     oclock = false;
     basic = true;
   }
   function see_divisas() {
     basic = false;
-    nomina = false;
     statics = false;
     oclock = false;
     divisas = true;
   }
   function see_statics() {
     basic = false;
-    nomina = false;
     divisas = false;
     oclock = false;
     statics = true;
   }
   function see_oclock() {
     basic = false;
-    nomina = false;
     divisas = false;
     statics = false;
     oclock = true;
