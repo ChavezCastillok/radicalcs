@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
+  import "bulma/css/bulma.css";
   import Welcome from "./Welcome.svelte";
-
   import CalcBasic from "./CalcBasic.svelte";
   import CalcDivisas from "./CalcDivisas.svelte";
   import CalcStatics from "./CalcStatics.svelte";
