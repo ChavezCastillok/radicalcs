@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
 
+  let pyodide;
+
   // todo
   let dato = {
     value: "",
@@ -16,7 +18,7 @@
   let medianaSimple = 0;
   let mediana = 0;
 
-  const add = () => {
+  function add() {
     if (datos.length > 0) {
       dato.accumulatedFrequency =
         datos[datos.length - 1].accumulatedFrequency + dato.frequency;
@@ -31,7 +33,7 @@
     medianaSimple = calc_medianaSimple();
     mediana = calc_mediana();
     dato = { value: "", frequency: 1 };
-  };
+  }
 
   const calc_mediaArmonica = () => {
     let h = 0;
@@ -62,8 +64,8 @@
     return 123;
   };
   async function main_py() {
-    await loadPyodide({
-      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.17.0/full/",
+    pyodide = await loadPyodide({
+      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/",
     });
   }
   onMount(() => {
@@ -134,6 +136,7 @@
       <section class="column">
         <article class="content">
           <h1>Desde pyodide</h1>
+          <p>{pyodide}</p>
         </article>
       </section>
     </section>

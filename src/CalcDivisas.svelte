@@ -1,39 +1,43 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
 
-  let exchangeRateBCV = NaN;
+  let exchangeRateBCV: number = null;
 
-  let rateCOP = JSON.parse(localStorage.getItem("rateCOP")) ?? 3450;
-  let rateVES = JSON.parse(localStorage.getItem("rateVES")) ?? exchangeRateBCV;
-  let montoUSD = "";
-  let montoCOP = "";
-  let montoVES = "";
+  let rateCOP: number = JSON.parse(localStorage.getItem("rateCOP")) ?? 3500.0;
+  let rateVES: number =
+    JSON.parse(localStorage.getItem("rateVES")) ?? exchangeRateBCV;
+  let montoUSD: number;
+  let montoCOP: number;
+  let montoVES: number;
 
-  $: rateVESCOP = (rateCOP / rateVES).toFixed("6");
+  const divisas = [
+    { siglas: "USD", description: "Dolar de Estados Unidos." },
+    { siglas: "COP", description: "Peso de Colombia" },
+    { siglas: "VED", description: 'Bolivar "digital" de Venezuela' },
+  ];
+
+  $: rateVESCOP = Number((rateCOP / rateVES).toFixed(2));
   $: localStorage.setItem("rateCOP", JSON.stringify(rateCOP));
   $: localStorage.setItem("rateVES", JSON.stringify(rateVES));
 
-  const calcularUSD = () => {
-    if (montoUSD < 0) {
-      montoUSD = 1;
-    }
-    montoVES = (montoUSD * rateVES).toFixed("2");
-    montoCOP = (montoUSD * rateCOP).toFixed("2");
-  };
-  const calcularCOP = () => {
-    montoVES = (montoCOP / rateVESCOP).toFixed("2");
-    montoUSD = (montoCOP / rateCOP).toFixed("2");
-  };
-  const calcularVES = () => {
-    montoCOP = (montoVES * rateVESCOP).toFixed("2");
-    montoUSD = (montoVES / rateVES).toFixed("2");
-  };
+  function calcularUSD() {
+    montoVES = Number((montoUSD * rateVES).toFixed(2));
+    montoCOP = Number((montoUSD * rateCOP).toFixed(2));
+  }
+  function calcularCOP() {
+    montoVES = Number((montoCOP / rateVESCOP).toFixed(2));
+    montoUSD = Number((montoCOP / rateCOP).toFixed(2));
+  }
+  function calcularVES() {
+    montoCOP = Number((montoVES * rateVESCOP).toFixed(2));
+    montoUSD = Number((montoVES / rateVES).toFixed(2));
+  }
 
-  const cleanMounts = () => {
-    montoUSD = "";
-    montoCOP = "";
-    montoVES = "";
-  };
+  function cleanMounts() {
+    montoUSD = null;
+    montoCOP = null;
+    montoVES = null;
+  }
 
   async function dolarBCV() {
     await fetch("https://api-divisas-ve.herokuapp.com/v1/")
@@ -106,26 +110,14 @@
     </div>
 
     <div>
-      <div class="control mb-1">
-        <div class="tags has-addons">
-          <span class="tag is-dark">USD</span>
-          <span class="tag is-success">Dolar de Estados Unidos</span>
+      {#each divisas as moneda}
+        <div class="control mb-1">
+          <div class="tags has-addons">
+            <span class="tag is-dark">{moneda.siglas}</span>
+            <span class="tag is-success">{moneda.description}</span>
+          </div>
         </div>
-      </div>
-
-      <div class="control mb-1">
-        <div class="tags has-addons">
-          <span class="tag is-dark">COP</span>
-          <span class="tag is-success">Peso de Colombia</span>
-        </div>
-      </div>
-
-      <div class="control mb-1">
-        <div class="tags has-addons">
-          <span class="tag is-dark">VES</span>
-          <span class="tag is-success">Bolivar Soberano de Venezuela</span>
-        </div>
-      </div>
+      {/each}
     </div>
   </div>
   <div class="column">
@@ -152,7 +144,7 @@
             class="input"
             type="text"
             bind:value={rateVES}
-            on:input={calcularUSD}
+            on:input={cleanMounts}
             placeholder="VES"
           />
         </label>
@@ -162,19 +154,30 @@
 
     <div>
       {#if rateVES == exchangeRateBCV}
-        <button class="button is-info is-disabled" title="en uso" disabled>
-          exchangeRateBCV
-        </button>
+      <p>Tasa BCV <span class="tag is-warning">en uso</span></p>
+        
+      {:else if exchangeRateBCV == null}
+        <p class="help is-info">Tasa BCV no disponible.</p>
       {:else}
-        <button
+        <p class="help is-link">
+          Tasa BCV: {exchangeRateBCV}
+          {#if rateVES != exchangeRateBCV}
+            <span class="tag is-success"
+            on:click={()=>rateVES = exchangeRateBCV}
+            >
+              usar
+            </span>
+          {/if}
+        </p>
+        <!-- <button
           class="button"
-          title={exchangeRateBCV || "click me"}
+          title={String(exchangeRateBCV) || "usar"}
           on:click={() => {
             rateVES = exchangeRateBCV;
           }}
         >
-          exchangeRateBCV
-        </button>
+          Tasa BCV
+        </button> -->
       {/if}
     </div>
 

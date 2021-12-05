@@ -1,7 +1,7 @@
 <script lang="ts">
   import "bulma/css/bulma.css";
   import Welcome from "./Welcome.svelte";
-  import CalcBasic from "./CalcBasic.svelte";
+  import BasicCalc from "./basicCalc/BasicCalc.svelte";
   import CalcDivisas from "./CalcDivisas.svelte";
   import CalcStatics from "./CalcStatics.svelte";
   import Footer from "./Footer.svelte";
@@ -12,7 +12,7 @@
   let statics = false;
   let oclock = false;
 
-  function see_basic() {
+  function see_basic(): void {
     divisas = false;
     statics = false;
     oclock = false;
@@ -79,7 +79,7 @@
   </div>
   <section class="section">
     {#if basic}
-      <CalcBasic />
+      <BasicCalc />
     {:else if divisas}
       <CalcDivisas />
     {:else if statics}
@@ -101,10 +101,6 @@
     color: darkgreen;
     text-decoration: none;
     text-transform: uppercase;
-  }
-  main {
-    background-color: ghostwhite;
-    font-family: "Comfortaa";
   }
   .title {
     color: darkviolet;

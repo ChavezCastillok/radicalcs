@@ -1,6 +1,10 @@
-<section class="content">
-  <h1>Calculadoras</h1>
-  <h2>Explora las pestañas</h2>
+
+<section class="columns">
+  <article class="column content">
+    <h1>Calculadoras</h1>
+    <h2>Explora las pestañas</h2>
+  </article>
+  
 </section>
 
 <style>
@@ -10,4 +14,5 @@
   h2 {
     color: darkviolet;
   }
+  
 </style>

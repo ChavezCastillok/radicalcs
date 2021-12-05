@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CalcButton from "./CalcButton.svelte";
+  import BtnBasicCalc from "./BtnBasicCalc.svelte";
 
   // pantallas
   let screenResult = "";
@@ -100,47 +100,47 @@
       </label>
     </p>
     <p>
-      <CalcButton val="C" bind:mathOperation={screenOperation} />
-      <CalcButton
+      <BtnBasicCalc val="C" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc
         val="⒩"
         bind:mathOperation={screenOperation}
         bind:parentesisOpen
       />
-      <CalcButton
+      <BtnBasicCalc
         val="%"
         bind:mathOperation={screenOperation}
         bind:calcPercentage
       />
-      <CalcButton val="/" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="/" bind:mathOperation={screenOperation} />
     </p>
     <p>
-      <CalcButton val="1" bind:mathOperation={screenOperation} />
-      <CalcButton val="2" bind:mathOperation={screenOperation} />
-      <CalcButton val="3" bind:mathOperation={screenOperation} />
-      <CalcButton val="x" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="1" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="2" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="3" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="x" bind:mathOperation={screenOperation} />
     </p>
 
     <p>
-      <CalcButton val="4" bind:mathOperation={screenOperation} />
-      <CalcButton val="5" bind:mathOperation={screenOperation} />
-      <CalcButton val="6" bind:mathOperation={screenOperation} />
-      <CalcButton val="-" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="4" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="5" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="6" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="-" bind:mathOperation={screenOperation} />
     </p>
     <p>
-      <CalcButton val="7" bind:mathOperation={screenOperation} />
-      <CalcButton val="8" bind:mathOperation={screenOperation} />
-      <CalcButton val="9" bind:mathOperation={screenOperation} />
-      <CalcButton val="+" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="7" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="8" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="9" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="+" bind:mathOperation={screenOperation} />
     </p>
     <p>
-      <CalcButton
+      <BtnBasicCalc
         val="±"
         bind:mathOperation={screenOperation}
         bind:parentesisOpen
       />
-      <CalcButton val="0" bind:mathOperation={screenOperation} />
-      <CalcButton val="." bind:mathOperation={screenOperation} />
-      <CalcButton
+      <BtnBasicCalc val="0" bind:mathOperation={screenOperation} />
+      <BtnBasicCalc val="." bind:mathOperation={screenOperation} />
+      <BtnBasicCalc
         val="="
         bind:mathOperation={screenOperation}
         bind:resultMathOperation={screenResult}

@@ -30,21 +30,20 @@
 <section class="content">
   <h1>Cronometro</h1>
   <p>{time.toFixed("1")} seconds.</p>
-  <button class="button" on:click={switchc}>play/stop</button>
+    <ion-icon name="play" on:click={switchc} size='large'></ion-icon>
+    <ion-icon name="stop" on:click={switchc} size='large'></ion-icon>
   {#if time !== 0.0}
-    <button class="button" on:click={restart}>restart</button>
+  <ion-icon name="refresh" on:click={restart}  size='large'></ion-icon>
   {/if}
   <article>
     <h1>Registro</h1>
-    {#if times.length > 0}
-      <button class="button is-danger is-outlined" on:click={delete_times}>
-        delete
-      </button>
-    {/if}
     <ol>
       {#each times as t}
         <li>{t} seconds.</li>
       {/each}
     </ol>
+    {#if times.length > 0}
+      <ion-icon name="trash" on:click={delete_times} size='large'></ion-icon>
+    {/if}
   </article>
 </section>
