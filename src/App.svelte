@@ -94,6 +94,14 @@
 </main>
 
 <style>
+  @font-face {
+    font-family: "Comfortaa";
+    src: url("../fonts/Comfortaa-Regular.ttf");
+  }
+
+  :global(main) {
+    font-family: "Comfortaa";
+  }
   a {
     color: green;
   }

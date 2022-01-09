@@ -1,8 +1,4 @@
 <script>
-  import { onMount } from "svelte";
-
-  let pyodide;
-
   // todo
   let dato = {
     value: "",
@@ -63,14 +59,6 @@
     let interval = 0;
     return 123;
   };
-  async function main_py() {
-    pyodide = await loadPyodide({
-      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/",
-    });
-  }
-  onMount(() => {
-    main_py();
-  });
 </script>
 
 <section class="section">
@@ -136,7 +124,7 @@
       <section class="column">
         <article class="content">
           <h1>Desde pyodide</h1>
-          <p>{pyodide}</p>
+          <p>Por desarrollar...</p>
         </article>
       </section>
     </section>
